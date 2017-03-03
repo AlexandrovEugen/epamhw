@@ -8,7 +8,8 @@
     <modules>
         <module>unit1</module>
 		<module>unit2</module>
-	</modules>
+        <module>unit3</module>
+    </modules>
     <packaging>pom</packaging>
 
  
