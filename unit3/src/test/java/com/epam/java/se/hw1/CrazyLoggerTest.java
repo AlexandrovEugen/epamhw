@@ -3,25 +3,29 @@ package com.epam.java.se.hw1;
 import org.junit.Test;
 
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.*;
 
 
 public class CrazyLoggerTest {
 
-
-
-    @Test
-    public void testThatMethodFindInfoWorksRight(){
-        CrazyLogger logger = new CrazyLogger(CrazyLoggerTest.class.getName());
-        String msg = "";
-        logger.log(msg);
+    @Test(expected = NullPointerException.class)
+    public void testThatMethodLogWillHasFailedAtStart(){
+        CrazyLogger log = new CrazyLogger(CrazyLoggerTest.class.getSimpleName());
+        log.log(null);
     }
 
     @Test
-    public void testThatMethodLogWorksRight(){
-
+    public void testThatLogForTryCatchBlockWillHasBeenWritten(){
+        CrazyLogger logger = new CrazyLogger(CrazyLoggerTest.class.getSimpleName());
+        try {
+            String b = null;
+            System.out.println(b.toString());
+        }
+        catch (NullPointerException e){
+            logger.log("Something is going wrong", e);
+        }
+        assertFalse("This log doesn't exists".equals(logger.findByMsg("Something is going wrong")));
+        System.out.println(logger.info());
     }
 }
