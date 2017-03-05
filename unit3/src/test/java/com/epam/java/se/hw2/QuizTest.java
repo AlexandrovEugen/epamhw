@@ -3,7 +3,6 @@ package com.epam.java.se.hw2;
 import org.junit.Test;
 
 import java.util.Locale;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import static org.junit.Assert.assertEquals;
@@ -24,14 +23,7 @@ public class QuizTest {
     public void testThatConversationIsGoingOnChosenLanguage(){
         Quiz quiz = new Quiz();
         quiz.setLocale("ru");
-        ResourceBundle ruQuestions = ResourceBundle.getBundle("ruQuestions" , quiz.getLocale());
+        ResourceBundle ruQuestions = ResourceBundle.getBundle("questions", quiz.getLocale());
         assertEquals(ruQuestions, quiz.getQuestions());
-    }
-
-    @Test(expected = MissingResourceException.class)
-    public void testThatQuizWillHasFailedWithIncorrectInput(){
-        Quiz quiz = new Quiz();
-        quiz.setLocale("fr");
-        quiz.getQuestions();
     }
 }

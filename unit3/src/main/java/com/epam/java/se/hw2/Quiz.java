@@ -15,7 +15,7 @@ public class Quiz {
     private Enumeration queKeys;
     private Enumeration ansKeys;
 
-    public void setLocale(String locale) {
+    public void setLocale(String locale){
         this.locale = new Locale(locale);
     }
 
@@ -30,23 +30,29 @@ public class Quiz {
         loadQuestions();
         return questions;
     }
+    public ResourceBundle getAnswers() {
+        loadQuestions();
+        return answers;
+    }
+    public ResourceBundle getConversation() {
+        loadQuestions();
+        return conversation;
+    }
 
-//    public void play(){
+//    public void play() {
 //
 //        System.out.println("Please select language");
 //        System.out.println("1 : English");
 //        System.out.println("2 : Russian");
 //        final Scanner s = new Scanner(System.in);
 //
-//        if (s.hasNextInt()){
+//        if (s.hasNextInt()) {
 //            int i = s.nextInt();
-//            if (i == 1){
+//            if (i == 1) {
 //                setLocale("en");
-//            }
-//            else if (i == 2){
+//            } else if (i == 2) {
 //                setLocale("ru");
-//            }
-//            else {
+//            } else {
 //                System.out.println("Incorrect input");
 //                System.exit(0);
 //            }
@@ -55,53 +61,38 @@ public class Quiz {
 //        loadQuestions();
 //        loadAnswers();
 //
-//        while (true){
+//        while (true) {
 //
-//            if (conKeys.hasMoreElements()){
+//            if (conKeys.hasMoreElements()) {
 //                System.out.println(conKeys.nextElement());
 //            }
-//            if (queKeys.hasMoreElements()){
+//            if (queKeys.hasMoreElements()) {
 //                System.out.println(queKeys.nextElement());
-//                if (s.hasNext()){
-//                    if (answers.containsKey()){
-//                        System.out.println(conversation.);
+//                if (s.hasNext()) {
+//                    if () {
+//                        System.out.println(conversation);
 //                    }
 //                }
 //            }
-//            if (ansKeys.hasMoreElements()){
+//            if (ansKeys.hasMoreElements()) {
 //                System.out.println(ansKeys.hasMoreElements());
 //            }
 //        }
 //    }
 
+
     private void loadConversation(){
-        if (locale.getLanguage().equals("ru")){
-            conversation = ResourceBundle.getBundle("reConversation", locale);
-        }
-        else {
-            conversation = ResourceBundle.getBundle("enConversation", locale);
-        }
+        conversation = ResourceBundle.getBundle("conversation", locale);
         this.conKeys = conversation.getKeys();
     }
 
     private void loadQuestions(){
-        if (locale.getLanguage().equals("ru")){
-            questions = ResourceBundle.getBundle("ruQuestions", locale);
-        }
-        else {
-            questions = ResourceBundle.getBundle("enQuestions", locale);
-        }
+        questions = ResourceBundle.getBundle("questions", locale);
         this.queKeys = questions.getKeys();
     }
 
     private void loadAnswers(){
-
-        if (locale.getLanguage().equals("ru")){
-            answers = ResourceBundle.getBundle("ruAnswers", locale);
-        }
-        else {
-            answers = ResourceBundle.getBundle("enAnswers", locale);
-        }
+        answers = ResourceBundle.getBundle("answers", locale);
         this.ansKeys = answers.getKeys();
     }
 
