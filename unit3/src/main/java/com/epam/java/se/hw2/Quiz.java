@@ -31,11 +31,11 @@ public class Quiz {
         return questions;
     }
     public ResourceBundle getAnswers() {
-        loadQuestions();
+        loadAnswers();
         return answers;
     }
     public ResourceBundle getConversation() {
-        loadQuestions();
+        loadConversation();
         return conversation;
     }
 

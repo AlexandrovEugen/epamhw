@@ -26,4 +26,12 @@ public class QuizTest {
         ResourceBundle ruQuestions = ResourceBundle.getBundle("questions", quiz.getLocale());
         assertEquals(ruQuestions, quiz.getQuestions());
     }
+
+    @Test
+    public void testThatQuestionsAndAnswersAreLoadedCorrectly(){
+        Quiz quiz = new Quiz();
+        quiz.setLocale("ru");
+        assertEquals("Столица Турции?",quiz.getQuestions().getString("question1"));
+        assertEquals("Анкара",quiz.getAnswers().getString("answer1"));
+    }
 }
