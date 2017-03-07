@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 public class TinyParser {
 
     private String nameOfFile;
-    private final String patternForSkip = "<br style=\"clear:both;\">";
     private final StringBuilder stringBuilder = new StringBuilder();
 
     public TinyParser(String nameOfFile)
@@ -20,6 +19,7 @@ public class TinyParser {
     }
 
     public void load(){
+        final String patternForSkip = "<br style=\"clear:both;\">";
         skipUselessPathOfFile(patternForSkip);
     }
 
@@ -34,7 +34,8 @@ public class TinyParser {
                 }
             }
             while (reader.ready()){
-                stringBuilder.append(reader.readLine()).append("\n");
+                String bold = bold(reader.readLine());
+                stringBuilder.append(bold).append("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,5 +44,9 @@ public class TinyParser {
 
     public StringBuilder getStringBuilder() {
         return stringBuilder;
+    }
+
+    private String bold(String line){
+        return "<b>" + line + "<b>";
     }
 }
