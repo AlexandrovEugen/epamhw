@@ -39,4 +39,12 @@ public class TinyParserTest {
             System.out.println(st);
         }
     }
+
+    @Test
+    public void testUpload(){
+        TinyParser tp = new TinyParser("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\unit3\\src\\main\\resources\\textforhw3.html");
+        tp.load();
+        tp.findAndGetBold();
+        tp.upload();
+    }
 }

@@ -1,10 +1,7 @@
 package com.epam.java.se.hw3;
 
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,11 +10,30 @@ public class TinyParser {
     private String nameOfFile;
     private final StringBuilder input = new StringBuilder();
     private final StringBuilder output = new StringBuilder();
+    private final StringBuilder skippedPart = new StringBuilder();
     private final Pattern refPattern = Pattern.compile("[Р|р]ис(\\.)?([унок|унки|унках|унком|])*");
 
     public TinyParser(String nameOfFile)
     {
         this.nameOfFile = nameOfFile;
+    }
+
+
+    public void upload(){
+        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.html"), "windows-1251"))) {
+            String[] skippedSplit = skippedPart.toString().split("\n");
+            String[] outputSplit = output.toString().split("\n");
+            for (String useless: skippedSplit) {
+              writer.write(useless);
+            }
+            for (String line: outputSplit){
+                writer.write(line);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void load(){
@@ -30,7 +46,9 @@ public class TinyParser {
             boolean canSkip = true;
             while (reader.ready() && canSkip){
                 Pattern pattern = Pattern.compile(mark);
-                Matcher m = pattern.matcher(reader.readLine());
+                String useless = reader.readLine();
+                Matcher m = pattern.matcher(useless);
+                skippedPart.append(useless).append("\n");
                 if (m.matches()){
                     canSkip = false;
                 }
@@ -51,6 +69,9 @@ public class TinyParser {
             if (m.find()){
                 output.append(bold(line)).append("\n");
             }
+            else {
+                output.append(line).append("\n");
+            }
         }
     }
 
@@ -67,4 +88,5 @@ public class TinyParser {
     private String bold(String line){
         return "<b>" + line + "<b>";
     }
+
 }
