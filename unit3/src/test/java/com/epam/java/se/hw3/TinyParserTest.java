@@ -3,6 +3,11 @@ package com.epam.java.se.hw3;
 
 import org.junit.Test;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertTrue;
+
 public class TinyParserTest {
 
     @Test
@@ -13,5 +18,12 @@ public class TinyParserTest {
         for (String st: split) {
             System.out.println(st);
         }
+    }
+
+    @Test
+    public void testThat(){
+        Pattern pattern = Pattern.compile("[Р|р]ис(\\.)?([унок|унки|унках|унком|])*");
+        Matcher m = pattern.matcher("рис.");
+        assertTrue(m.find());
     }
 }
