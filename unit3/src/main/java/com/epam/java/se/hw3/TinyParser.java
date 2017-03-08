@@ -18,6 +18,9 @@ public class TinyParser {
         this.nameOfFile = nameOfFile;
     }
 
+    public void IsReferencedSequentially(){
+
+    }
 
     public void upload(){
         try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.html"), "windows-1251"))) {
@@ -62,16 +65,23 @@ public class TinyParser {
     }
 
     public void findAndGetBold(){
-        String[] split = input.toString().split("\n");
-        Matcher m;
-        for (String line: split) {
-            m = refPattern.matcher(line);
-            if (m.find()){
-                output.append(bold(line)).append("\n");
+        Matcher matcher;
+        String[] lines = input.toString().split("\n");
+        for (String line: lines) {
+            String abbrevReplace = line.replaceAll("[(][Р|р]ис.", "abbrev");
+            String dotsReplace = abbrevReplace.replaceAll("[.]", ".`");
+            String[] sentences = dotsReplace.split("`");
+            for (String sentence: sentences) {
+                String originSentence = sentence.replaceAll("abbrev", "(Рис.");
+                matcher = refPattern.matcher(originSentence);
+                if (matcher.find()){
+                    output.append(bold(originSentence));
+                }
+                else {
+                    output.append(originSentence);
+                }
             }
-            else {
-                output.append(line).append("\n");
-            }
+            this.output.append("\n");
         }
     }
 
