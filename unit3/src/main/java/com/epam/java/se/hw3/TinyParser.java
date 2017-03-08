@@ -2,6 +2,8 @@ package com.epam.java.se.hw3;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,15 +13,14 @@ public class TinyParser {
     private final StringBuilder input = new StringBuilder();
     private final StringBuilder output = new StringBuilder();
     private final StringBuilder skippedPart = new StringBuilder();
-    private final Pattern refPattern = Pattern.compile("[Р|р]ис(\\.)?([унок|унки|унках|унком|])*");
+    private final Pattern REFPATTERN = Pattern.compile("[Р|р]ис[.]?([унок|унки|унках|унком|])*");
+    private final List<Integer> links = new ArrayList<>();
+
+    private final Pattern SEQUENCE_PATTERN = Pattern.compile("[Р|р]ис([.])?([унок|унки|унках|унком|])*[\\s]([\\d]){1,2}");
 
     public TinyParser(String nameOfFile)
     {
         this.nameOfFile = nameOfFile;
-    }
-
-    public void IsReferencedSequentially(){
-
     }
 
     public void upload(){
@@ -32,8 +33,6 @@ public class TinyParser {
             for (String line: outputSplit){
                 writer.write(line);
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,9 +72,18 @@ public class TinyParser {
             String[] sentences = dotsReplace.split("`");
             for (String sentence: sentences) {
                 String originSentence = sentence.replaceAll("abbrev", "(Рис.");
-                matcher = refPattern.matcher(originSentence);
+                matcher = REFPATTERN.matcher(originSentence);
                 if (matcher.find()){
-                    output.append(bold(originSentence));
+                    Matcher m  = SEQUENCE_PATTERN.matcher(originSentence);
+                    if (m.find()){
+                        Pattern p = Pattern.compile("\\d+");
+                        Matcher m1 = p.matcher(m.group());
+                        if (m1.find()){
+                            links.add(Integer.parseInt(m1.group()));
+                        }
+                        output.append(bold(originSentence));
+                    }
+
                 }
                 else {
                     output.append(originSentence);
@@ -99,4 +107,14 @@ public class TinyParser {
         return "<b>" + line + "<b>";
     }
 
+
+    public boolean isConsistently() {
+        boolean consistently = true;
+        for (int i = 1; i < links.size(); i++) {
+            if (links.get(i-1).compareTo(links.get(i)) != 1) {
+                consistently = false;
+            }
+        }
+        return consistently;
+    }
 }

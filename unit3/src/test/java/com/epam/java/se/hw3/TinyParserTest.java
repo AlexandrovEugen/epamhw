@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TinyParserTest {
@@ -91,6 +92,7 @@ public class TinyParserTest {
             System.out.println(line);
         }
     }
+    @Ignore
     @Test
     public void testThatRegExpForFindingTagsInTheStarAndEndOfLineWorksRight(){
         Pattern tagPatternStart = Pattern.compile("^<(.){1,4}>.*[^<>]$");
@@ -102,4 +104,14 @@ public class TinyParserTest {
         assertTrue(matchEnd.matches());
         assertTrue(matchStart.matches());
     }
+
+    @Test
+    public void testThatAnalysisOfSequenceOfReferringWorksRight(){
+        TinyParser tp = new TinyParser("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\unit3\\src\\main\\resources\\textforhw3.html");
+        tp.load();
+        tp.findAndGetBold();
+        assertFalse(tp.isConsistently());
+    }
+
+
 }
