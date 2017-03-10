@@ -11,10 +11,10 @@ public class CodeWriterTest {
     @Test
     public void testThatWeCanFindAllKeyWords(){
         Map<String,Integer> benchMark = new HashMap<>();
-
         CodeReader reader = new CodeReader("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\BinarySearch.java");
         reader.read();
+        CodeWriter writer = new CodeWriter(reader);
+        writer.ouputFile();
     }
-
 
 }

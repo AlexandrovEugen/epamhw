@@ -1,0 +1,14 @@
+implements = 1
+new = 1
+private = 1
+package = 1
+import = 1
+for = 1
+int = 6
+public = 2
+extends = 1
+throw = 1
+else = 2
+class = 1
+if = 4
+return = 5

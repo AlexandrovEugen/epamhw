@@ -4,18 +4,19 @@ package com.epam.java.se.hw1;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.Objects;
 
 public class CodeReader {
 
     private final String javaFile;
-    private final Map<String, Integer> keyWordsAndTheirAmount = new HashMap<>();
-    private final ResourceBundle keyWordsFromProperties = ResourceBundle.getBundle("keyWords");
+    public StringBuilder getBitesToString() {
+        return bitesToString;
+    }
 
+    private final StringBuilder bitesToString = new StringBuilder();
 
     public CodeReader(String testFile) {
+        Objects.requireNonNull(testFile);
         String[] split = testFile.split("[.]");
         if (!split[split.length -1].equals("java")){
             throw new IllegalArgumentException();
@@ -27,7 +28,7 @@ public class CodeReader {
         int b;
         try(BufferedInputStream input = new BufferedInputStream(new FileInputStream(javaFile))) {
             while ((b = input.read()) != -1){
-                System.out.println("byte" +  b);
+                bitesToString.append((char)b);
             }
         } catch (IOException e) {
             e.printStackTrace();
