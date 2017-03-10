@@ -20,7 +20,7 @@ public class CyrillicUTF16Writer {
             for (String line: utf8Text.toString().split("\n")) {
 //                byte[] bytes = line.getBytes();
 //                bw.write(new String(bytes, utf16));
-                bw.write(line);
+                bw.write(line + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
