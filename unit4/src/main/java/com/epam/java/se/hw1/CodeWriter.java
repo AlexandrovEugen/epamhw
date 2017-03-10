@@ -46,7 +46,7 @@ public class CodeWriter {
         }
     }
 
-    public void ouputFile(){
+    public void outputFile(){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt"))) {
             Map<String, Integer> keyWords = getKeyWords();
             for (String keyWord: keyWords.keySet()) {
