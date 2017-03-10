@@ -107,7 +107,7 @@ public class TinyParserTest {
 
     @Test
     public void testThatAnalysisOfSequenceOfReferringWorksRight(){
-        TinyParser tp = new TinyParser("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\unit3\\src\\main\\resources\\textforhw3.html");
+        TinyParser tp = new TinyParser("src\\main\\resources\\textforhw3.html");
         tp.load();
         tp.findAndGetBold();
         assertFalse(tp.isConsistently());

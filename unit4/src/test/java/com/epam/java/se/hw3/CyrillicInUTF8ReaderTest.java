@@ -8,7 +8,7 @@ public class CyrillicInUTF8ReaderTest {
 
     @Test
     public void testThatWeCanReadTextInUTF8(){
-        CyrillicInUTF8Reader reader = new CyrillicInUTF8Reader("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\unit4\\src\\main\\resources\\Russian-Lipsum.txt");
+        CyrillicInUTF8Reader reader = new CyrillicInUTF8Reader("src\\main\\resources\\Russian-Lipsum.txt");
         reader.utf8Read();
         CyrillicUTF16Writer writer = new CyrillicUTF16Writer(reader);
         writer.writeToFile();

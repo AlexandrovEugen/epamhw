@@ -2,12 +2,13 @@ package com.epam.java.se.hw3;
 
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 public class CyrillicInUTF8Reader {
     private final String fileName;
-
     private final StringBuilder utf8Text;
+    private Charset utf8 = Charset.forName("utf-8");
 
     public CyrillicInUTF8Reader(String fileName) {
         Objects.requireNonNull(fileName);
@@ -17,11 +18,12 @@ public class CyrillicInUTF8Reader {
 
     public void utf8Read(){
 
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)))) {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), utf8))) {
             while (br.ready()){
-                byte[] biteLine = br.readLine().getBytes();
-                String stringLine = new String(biteLine, "UTF-8");
-                utf8Text.append(stringLine).append("\\n");
+//                byte[] biteLine = br.readLine().getBytes();
+//                String stringLine = new String(biteLine, utf8);
+//                utf8Text.append(stringLine).append("\\n");
+                utf8Text.append(br.readLine()).append("\n");
             }
         }
         catch (IOException e){
