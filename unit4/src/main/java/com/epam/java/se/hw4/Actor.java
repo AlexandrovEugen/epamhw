@@ -4,6 +4,15 @@ package com.epam.java.se.hw4;
 public class Actor {
 
     private final String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSureName() {
+        return sureName;
+    }
+
     private final String sureName;
     private final Sex sex;
 

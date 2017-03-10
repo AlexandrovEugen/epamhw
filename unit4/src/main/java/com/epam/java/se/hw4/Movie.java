@@ -8,6 +8,7 @@ public class Movie {
 
     private Actor mainActress;
     private String title;
+
     public Movie(String title) {
         Objects.requireNonNull(title);
         this.title = title;
@@ -38,5 +39,26 @@ public class Movie {
 
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Objects.requireNonNull(o);
+        Movie otherMovie;
+
+        if (o instanceof Movie){
+            otherMovie = (Movie) o;
+        }
+        else {
+            return false;
+        }
+        return this.getMainActor().equals(otherMovie.getMainActor()) &&
+                this.getMainActress().equals(otherMovie.getMainActress()) &&
+                this.title.equals(otherMovie.getTitle());
     }
 }
