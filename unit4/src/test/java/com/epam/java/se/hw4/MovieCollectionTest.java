@@ -25,6 +25,7 @@ public class MovieCollectionTest {
         mc.addMovie(titanic);
         mc.addMovie(titanic1);
         mc.addMovie(desperados);
+
         assertEquals(2, mc.collectionsSize());
     }
 

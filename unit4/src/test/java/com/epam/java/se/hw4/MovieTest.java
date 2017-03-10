@@ -7,7 +7,7 @@ public class MovieTest {
 
     @Test(expected = NullPointerException.class)
     public void testThatMovieMustHaasANAme(){
-        Movie movie = new Movie(null);
+        new Movie(null);
     }
 
     @Test(expected = IllegalArgumentException.class)

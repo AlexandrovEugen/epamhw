@@ -1,7 +1,10 @@
 package com.epam.java.se.hw4;
 
 
-public class Actor {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Actor implements Serializable {
 
     private final String name;
 
@@ -29,6 +32,9 @@ public class Actor {
     }
 
     public Actor(String name, String sureName, Sex sex) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(sureName);
+        Objects.requireNonNull(sex);
         this.name = name;
         this.sureName = sureName;
         this.sex = sex;
