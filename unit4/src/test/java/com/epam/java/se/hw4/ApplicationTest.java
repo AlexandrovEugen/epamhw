@@ -46,7 +46,6 @@ public class ApplicationTest {
         collection.addMovie(drive);
     }
 
-
     @Test
     public void testThatApplicationCanSaveAndDownloadCollection(){
 
@@ -62,5 +61,6 @@ public class ApplicationTest {
             assertTrue(collections.contains(movie));
         }
     }
+
 
 }
