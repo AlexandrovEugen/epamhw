@@ -2,6 +2,7 @@ package com.epam.java.se.hw1;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -34,6 +35,12 @@ public class App {
         switch (command){
             case "cd":{
                 String directory = parse.get(1);
+                File file = new File(directory).getAbsoluteFile();
+                if (file.exists() || file.mkdir()){
+                    boolean result;
+                    result = System.setProperty("user.dir", file.getAbsolutePath()) != null;
+                    System.out.println(System.setProperty("user.dir", file.getAbsolutePath()));
+                }
             }
 
             break;
