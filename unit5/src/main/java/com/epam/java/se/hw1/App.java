@@ -2,18 +2,23 @@ package com.epam.java.se.hw1;
 
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class App {
 
+    private static String currentDir = "user.dir";
+
     public static void main(String[] args) {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean isRunning = true;
         System.out.println("Shell command line is greeting you!!!");
-        System.out.println(System.getProperty("user.dir"));
+        System.out.println(System.getProperty(currentDir));
         while (isRunning){
             try {
                 isRunning = handler(br.readLine());
@@ -32,14 +37,7 @@ public class App {
         switch (command){
             case "cd":{
                 String directory = parse.get(1);
-                File file = new File(directory).getAbsoluteFile();
-                if (file.exists() || file.mkdir()){
-                    boolean b = System.setProperty("user.dir", file.getAbsolutePath()) != null;
-                    System.out.println(System.setProperty("user.dir", file.getAbsolutePath()));
-                }
-                else {
-                    System.out.println("File not found!");
-                }
+                changeCurrentDirectory(directory);
             }
             break;
 
@@ -65,12 +63,23 @@ public class App {
 
             case "rm":{
                 String fileName = parse.get(1);
+                File file = new File(fileName).getAbsoluteFile();
+                if (file.isFile()){
+                    boolean delete = file.delete();
+                    System.out.println(delete);
+                }
             }
 
             break;
 
             case "rmdir":{
-                String name = parse.get(1);
+                String directory = parse.get(1);
+                Path path = Paths.get(directory).toAbsolutePath();
+                try {
+                    Files.delete(path);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             break;
@@ -105,8 +114,18 @@ public class App {
         return isRunning;
     }
 
+    private static void changeCurrentDirectory(String directory) {
+        File file = new File(directory).getAbsoluteFile();
+        if (file.exists()){
+            boolean b = System.setProperty("user.dir", file.getAbsolutePath()) != null;
+            System.out.println(System.setProperty("user.dir", file.getAbsolutePath()));
+        }
+        currentDir = directory;
+    }
+
     private static void showContent() {
-        File file = new File(String.valueOf(System.getProperty("user.dir")));
+        File file = new File(System.getProperty("user.dir"));
+        changeCurrentDirectory(currentDir);
         File[] files = file.listFiles();
         assert files != null;
         for (File aFile: files) {
