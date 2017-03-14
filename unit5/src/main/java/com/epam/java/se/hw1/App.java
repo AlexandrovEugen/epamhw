@@ -1,10 +1,7 @@
 package com.epam.java.se.hw1;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -37,28 +34,37 @@ public class App {
                 String directory = parse.get(1);
                 File file = new File(directory).getAbsoluteFile();
                 if (file.exists() || file.mkdir()){
-                    boolean result;
-                    result = System.setProperty("user.dir", file.getAbsolutePath()) != null;
+                    boolean b = System.setProperty("user.dir", file.getAbsolutePath()) != null;
                     System.out.println(System.setProperty("user.dir", file.getAbsolutePath()));
                 }
+                else {
+                    System.out.println("File not found!");
+                }
             }
-
             break;
 
             case "mkdir":{
                 String directory = parse.get(1);
+                File file = new File(directory).getAbsoluteFile();
+                file.mkdir();
             }
 
             break;
 
             case "touch":{
                 String fileName = parse.get(1);
+                File file = new File(fileName).getAbsoluteFile();
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             break;
 
             case "rm":{
-                String name = parse.get(1);
+                String fileName = parse.get(1);
             }
 
             break;
@@ -100,6 +106,12 @@ public class App {
     }
 
     private static void showContent() {
+        File file = new File(String.valueOf(System.getProperty("user.dir")));
+        File[] files = file.listFiles();
+        assert files != null;
+        for (File aFile: files) {
+            System.out.println(aFile.getName());
+        }
     }
 
     private  static String shellCommands() {
