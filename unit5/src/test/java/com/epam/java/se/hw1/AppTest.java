@@ -1,11 +1,17 @@
 package com.epam.java.se.hw1;
 
 
-public class AppTest {
-
-    private  App app;
-
-
+//import org.junit.Before;
+//import org.junit.Ignore;
+//import org.junit.Test;
+//
+//import static org.junit.Assert.assertTrue;
+//
+//public class AppTest {
+//
+//    private  App app;
+//
+//
 //    @Before
 //    public void init(){
 //        app = new App();
@@ -16,7 +22,6 @@ public class AppTest {
 //    @Test
 //    public void testThatMethodGoToWorksRight(){
 //        assertTrue(app.contains("unit1"));
-//
 //            app.cd("unit5");
 //        assertTrue(app.contains("src"));
 //            app.cd("unit5\\main\\java");
@@ -65,4 +70,4 @@ public class AppTest {
 //        assertEquals(benchmark, textFromFile);
 //    }
 
-}
+//}
