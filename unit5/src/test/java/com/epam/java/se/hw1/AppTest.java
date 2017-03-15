@@ -1,73 +1,64 @@
 package com.epam.java.se.hw1;
 
 
-//import org.junit.Before;
-//import org.junit.Ignore;
-//import org.junit.Test;
-//
-//import static org.junit.Assert.assertTrue;
-//
-//public class AppTest {
-//
-//    private  App app;
-//
-//
-//    @Before
-//    public void init(){
-//        app = new App();
-//    }
-//
-//
-//    @Ignore
-//    @Test
-//    public void testThatMethodGoToWorksRight(){
-//        assertTrue(app.contains("unit1"));
-//            app.cd("unit5");
-//        assertTrue(app.contains("src"));
-//            app.cd("unit5\\main\\java");
-//        assertTrue(app.contains("com"));
-//            app.cd("..");
-//        assertTrue(app.contains("unit1"));
-//    }
-//
-//    @Ignore
-//    @Test(expected = FileNotFoundException.class)
-//    public void testThatAppCantDeleteNonExistingFile(){
-//        app.rm("customDir");
-//    }
-//
-//    @Ignore
-//    @Test(expected = FileAlreadyExistsException.class)
-//    public void testThatAppCantCreateAnExitingFile(){
-//        app.mkdir("customDir");
-//        app.mkdir("customDir");
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void testThatMethodContainsWorksRight(){
-//        app.mkdir("customDir");
-//        app.touch("customFile");
-//        assertTrue(app.contains("customDir"));
-//        assertTrue(app.contains("customFile"));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void testThatMethodDeleteWorksRight(){
-//        app.mkdir("customDir");
-//        assertTrue(app.contains("customDir"));
-//        app.rm("customDir");
-//        assertFalse(app.contains("customDir"));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void testThatMethodWriteToFileWorksRight(){
-//        app.writeToFile("unit5\\src\\main\\resources\\customFile.txt", "Hello, World!");
-//        String textFromFile = app.readFromFile("unit5\\src\\main\\resources\\customFile.txt");
-//        String benchmark = "Hello, Word!";
-//        assertEquals(benchmark, textFromFile);
-//    }
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-//}
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+public class AppTest {
+
+    List<String> catCommand;
+
+    @Before
+    public void init(){
+        String command = "cat >> file.txt Hello, world!";
+         catCommand = Arrays.asList(command.split(" "));
+    }
+
+    @Ignore
+    @Test
+    public void changeCurrentDirectoryTest(){
+        App.changeCurrentDirectory("unit1");
+        assertTrue(App.contains("src"));
+        App.changeCurrentDirectory("..");
+        assertTrue(App.contains("unit1"));
+    }
+
+    @Ignore
+    @Test
+    public void deleteDirTest()  {
+        App.createDir("tmp");
+        assertTrue(App.contains("tmp"));
+        App.deleteDir("tmp");
+        assertFalse(App.contains("tmp"));
+    }
+
+    @Ignore
+    @Test
+    public void readFromFileTest() {
+        App.createFile("file.txt");
+        App.rewriteFile(catCommand);
+        String[] test = (String[]) App.readFromFile(catCommand).toArray();
+        String[] benchmark = (String[]) catCommand.stream().skip(3).collect(Collectors.toList()).toArray();
+        for (String aTest : benchmark) {
+            System.out.println(aTest);
+        }
+    }
+
+    @Ignore
+    @Test
+    public void deleteFileTest() {
+        App.createFile("tmp.txt");
+        assertTrue(App.contains("tmp.txt"));
+        App.deleteFile("tmp.txt");
+        assertFalse(App.contains("tmp.txt"));
+    }
+
+}
