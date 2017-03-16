@@ -20,6 +20,7 @@ public class XMLLoader {
     private NodeList setCommands;
     private NodeList getCommands;
     private Map<String, Long> operations = new HashMap<>();
+    private Node initialSum;
 
     public void load(String xmlFileName) {
 
@@ -29,6 +30,7 @@ public class XMLLoader {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(xmlFile);
 
+            initialSum = document.getElementsByTagName("initial").item(0);
             setCommands = document.getElementsByTagName("set");
             getCommands = document.getElementsByTagName("get");
 
@@ -40,9 +42,8 @@ public class XMLLoader {
     private void addListContentToMap(NodeList list) {
         for (int i = 0; i < list.getLength(); i++) {
             Node node = list.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE){
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                System.out.println(element.getNodeName() + "  " + element.getTextContent());
                 operations.put(element.getNodeName(), Long.valueOf(element.getTextContent()));
             }
         }
@@ -52,5 +53,9 @@ public class XMLLoader {
         addListContentToMap(setCommands);
         addListContentToMap(getCommands);
         return operations;
+    }
+
+    public Long getInitialSum() {
+        return Long.valueOf(initialSum.getTextContent());
     }
 }
