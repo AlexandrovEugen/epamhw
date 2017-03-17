@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class XMLLoader {
@@ -57,5 +58,17 @@ public class XMLLoader {
 
     public Long getInitialSum() {
         return Long.valueOf(initialSum.getTextContent());
+    }
+
+    public List<Account> loadTestAccounts() {
+        return null;
+    }
+
+    public List<Account> loadAccounts() {
+        return null;
+    }
+
+    public List<Sender> getSenders() {
+        return null;
     }
 }

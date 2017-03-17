@@ -11,6 +11,11 @@ public class DepositOperation extends Thread {
     private final Account account;
     private final List<Long> setters;
 
+    /**
+     *
+     * @param account
+     * @param setters list of amounts for deposit to this account
+     */
     public DepositOperation(Account account, List<Long> setters) {
         Objects.requireNonNull(account);
         Objects.requireNonNull(setters);

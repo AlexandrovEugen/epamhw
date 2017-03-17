@@ -11,6 +11,11 @@ public class WithdrawOperation extends Thread {
     private final Account account;
     private final List<Long> getters;
 
+
+    /**
+     * @param getters list of  amounts for withdraw from this account
+     */
+
     public WithdrawOperation(Account account, List<Long> getters){
         this.getters = getters;
         Objects.requireNonNull(account);

@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Account {
 
     private Long balance;
+    private Object id;
 
     public Account(Long balance) {
         Objects.requireNonNull(balance);
@@ -37,4 +38,7 @@ public class Account {
         return balance;
     }
 
+    public Object getId() {
+        return id;
+    }
 }

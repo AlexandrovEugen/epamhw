@@ -16,11 +16,7 @@ public class BankOperations {
     private WithdrawOperation withdraw;
 
 
-    /**
-     *
-     * @param account 
-     *
-     */
+
     public BankOperations(Account account) {
         Objects.requireNonNull(account);
         this.account = account;
