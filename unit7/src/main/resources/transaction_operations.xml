@@ -29,10 +29,6 @@
         <balance>10000</balance>
     </account>
     <account>
-        <id>7</id>
-        <balance>10000</balance>
-    </account>
-    <account>
         <id>8</id>
         <balance>10000</balance>
     </account>
@@ -41,109 +37,78 @@
         <balance>10000</balance>
     </account>
 
-
-    <sender>
-        <id>1</id>
-        <receiver>
-            <id>2</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-    <sender>
+    <sender id="1">
         <id>2</id>
-        <receiver>
-            <id>1</id>
-            <amount>1000</amount>
-        </receiver>
+        <amount>1000</amount>
     </sender>
-    <sender>
+    <sender id="2">
         <id>1</id>
-        <receiver>
-            <id>4</id>
-            <amount>1000</amount>
-        </receiver>
+        <amount>1000</amount>
     </sender>
-    <sender>
+    <sender id="1">
+        <id>4</id>
+        <amount>1000</amount>
+    </sender>
+    <sender id="5">
+        <id>6</id>
+        <amount>1000</amount>
+    </sender>
+    <sender id="2">
+        <id>6</id>
+        <amount>1000</amount>
+    </sender>
+    <sender id="7">
+        <id>1</id>
+        <amount>1000</amount>
+    </sender>
+    <sender id="9">
+        <id>7</id>
+        <amount>1000</amount>
+    </sender>
+    <sender id="11">
+        <id>12</id>
+        <amount>1000</amount>
+    </sender>
+    <sender id="8">
+        <id>1</id>
+        <amount>1000</amount>
+    </sender>
+
+    <test_account>
+        <id>1</id>
+        <balance>11000</balance>
+    </test_account>
+    <test_account>
+        <id>2</id>
+        <balance>9000</balance>
+    </test_account>
+    <test_account>
+        <id>3</id>
+        <balance>10000</balance>
+    </test_account>
+    <test_account>
+        <id>4</id>
+        <balance>11000</balance>
+    </test_account>
+    <test_account>
         <id>5</id>
-        <receiver>
-            <id>6</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-    <sender>
-        <id>2</id>
-        <receiver>
-            <id>6</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-    <sender>
+        <balance>9000</balance>
+    </test_account>
+    <test_account>
+        <id>6</id>
+        <balance>12000</balance>
+    </test_account>
+    <test_account>
         <id>7</id>
-        <receiver>
-            <id>1</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-    <sender>
-        <id>9</id>
-        <receiver>
-            <id>7</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-    <sender>
-        <id>11</id>
-        <receiver>
-            <id>12</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-
-    <sender>
+        <balance>10000</balance>
+    </test_account>
+    <test_account>
         <id>8</id>
-        <receiver>
-            <id>1</id>
-            <amount>1000</amount>
-        </receiver>
-    </sender>
-
-    <testData>
-        <account>
-            <id>1</id>
-            <balance>10000</balance>
-        </account>
-        <account>
-            <id>2</id>
-            <balance>9000</balance>
-        </account>
-        <account>
-            <id>3</id>
-            <balance>10000</balance>
-        </account>
-        <account>
-            <id>4</id>
-            <balance>11000</balance>
-        </account>
-        <account>
-            <id>5</id>
-            <balance>9000</balance>
-        </account>
-        <account>
-            <id>6</id>
-            <balance>12000</balance>
-        </account>
-        <account>
-            <id>7</id>
-            <balance>10000</balance>
-        </account>
-        <account>
-            <id>8</id>
-            <balance>10000</balance>
-        </account>
-        <account>
-            <id>9</id>
-            <balance>9000</balance>
-        </account>
-    </testData>
+        <balance>9000</balance>
+    </test_account>
+    <test_account>
+        <id>9</id>
+        <balance>9000</balance>
+    </test_account>
 
 </transactions>

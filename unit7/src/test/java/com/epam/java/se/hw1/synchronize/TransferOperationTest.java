@@ -17,16 +17,11 @@ public class TransferOperationTest {
     private TransferOperation transferOperation;
     private List<Account> accounts;
     private List<Account> testAccounts;
-
+    private XMLLoader xmlLoader = new XMLLoader();
     @Before
     public void load(){
-        final XMLLoader xmlLoader = new XMLLoader();
         xmlLoader.load("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\unit7\\src\\main\\resources\\transaction_operations.xml");
-
         final List<Sender> senders = xmlLoader.getSenders();
-
-        testAccounts = xmlLoader.loadTestAccounts();
-        accounts = xmlLoader.loadAccounts();
         transferOperation = new TransferOperation(senders);
     }
 
@@ -35,16 +30,15 @@ public class TransferOperationTest {
     @Test
     public void testThatAtTheAndWeGotValidBalanceValueOnBothAccounts(){
         transferOperation.doTransfer();
-        Account[] realBalance = (Account[]) accounts.toArray();
-        Account[] benchmark = (Account[]) testAccounts.toArray();
-        for (int i = 0; i < realBalance.length; i++) {
-            for (Account aBenchmark : benchmark) {
-                if (realBalance[i].getId().equals(aBenchmark.getId())) {
-                    assertEquals(realBalance[i].getBalance(), (benchmark[i].getBalance()));
-                }
-            }
+        accounts = xmlLoader.getAccounts();
+        testAccounts = xmlLoader.getTestAccount();
+        assertEquals(accounts.size(), testAccounts.size());
+        for (int i = 0; i < accounts.size(); i++) {
+            assertEquals(accounts.get(i).getId(),(testAccounts.get(i).getId()));
+            assertEquals(accounts.get(i).getBalance(),(testAccounts.get(i).getBalance()));
         }
     }
+
 
 
 

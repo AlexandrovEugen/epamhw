@@ -1,9 +1,8 @@
 package com.epam.java.se.hw1;
 
-
+import com.epam.java.se.hw1.synchronize.ParseAccountsToList;
+import com.epam.java.se.hw1.synchronize.ParseSendersToList;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -12,16 +11,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class XMLLoader {
 
-    private NodeList setCommands;
-    private NodeList getCommands;
-    private Map<String, Long> operations = new HashMap<>();
-    private Node initialSum;
+    private ParseAccountsToList accounts;
+    private ParseAccountsToList testAccounts;
+    private ParseSendersToList senders;
 
     public void load(String xmlFileName) {
 
@@ -31,44 +28,32 @@ public class XMLLoader {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(xmlFile);
 
-            initialSum = document.getElementsByTagName("initial").item(0);
-            setCommands = document.getElementsByTagName("set");
-            getCommands = document.getElementsByTagName("get");
+            NodeList accountNodes = document.getElementsByTagName("account");
+            NodeList testAccountNodes = document.getElementsByTagName("test_account");
+            NodeList senderNodes = document.getElementsByTagName("sender");
 
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+
+            testAccounts = new ParseAccountsToList(testAccountNodes);
+            testAccounts.start();
+
+            accounts = new ParseAccountsToList(accountNodes);
+            senders = new ParseSendersToList(senderNodes, accounts);
+            senders.start();
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void addListContentToMap(NodeList list) {
-        for (int i = 0; i < list.getLength(); i++) {
-            Node node = list.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                operations.put(element.getNodeName(), Long.valueOf(element.getTextContent()));
-            }
-        }
+    public List<Account> getAccounts(){
+        return  accounts.getAccounts();
     }
 
-    public Map<String, Long> parseOperationsToMap() {
-        addListContentToMap(setCommands);
-        addListContentToMap(getCommands);
-        return operations;
+    public List<Sender> getSenders(){
+        return  senders.getSenders();
     }
 
-    public Long getInitialSum() {
-        return Long.valueOf(initialSum.getTextContent());
-    }
-
-    public List<Account> loadTestAccounts() {
-        return null;
-    }
-
-    public List<Account> loadAccounts() {
-        return null;
-    }
-
-    public List<Sender> getSenders() {
-        return null;
+    public List<Account> getTestAccount(){
+        return testAccounts.getAccounts();
     }
 }
