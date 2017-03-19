@@ -51,11 +51,15 @@ public class ParseSendersToList extends Thread {
     }
 
     public List<Sender> getSenders(){
+        for (Sender sender : workingSenders) {
+            int  i = 1;
+            System.out.print(i++ + "--" + sender.getId());
+        }
         return workingSenders;
     }
 
 
-    private List<Sender> parseSendersToList() {
+    private void parseSendersToList() {
 
         fillTheSenders();
         for (int i = 0; i < sendersNodeList.getLength(); i++) {
@@ -88,7 +92,6 @@ public class ParseSendersToList extends Thread {
 
             }
         }
-        return workingSenders;
     }
 
     private void fillTheSenders(){

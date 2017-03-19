@@ -13,24 +13,25 @@ import static org.junit.Assert.assertEquals;
 public class TransferOperationTest {
 
 
-    private TransferOperation transferOperation;
-    private List<Account> accounts;
-    private List<Account> testAccounts;
+    private final ThreadLocal<TransferOperation> transferOperation = new ThreadLocal<>();
     private XMLLoader xmlLoader = new XMLLoader();
+    List<Sender> senders;
+
     @Before
     public void load(){
-        xmlLoader.load("C:\\Users\\Евгений\\IdeaProjects\\epamhw\\unit7\\src\\main\\resources\\transaction_operations.xml");
-        final List<Sender> senders = xmlLoader.getSenders();
-        transferOperation = new TransferOperation(senders);
+        xmlLoader.load("epamhw\\unit7\\src\\main\\resources\\transaction_operations.xml");
+        senders = xmlLoader.getSenders();
+
     }
 
 
 
     @Test
     public void testThatAtTheAndWeGotValidBalanceValueOnBothAccounts(){
-        transferOperation.doTransfer();
-        accounts = xmlLoader.getAccounts();
-        testAccounts = xmlLoader.getTestAccount();
+        transferOperation.set(new TransferOperation(senders));
+        transferOperation.get().doTransfer();
+        List<Account> accounts = xmlLoader.getAccounts();
+        List<Account> testAccounts = xmlLoader.getTestAccount();
         assertEquals(accounts.size(), testAccounts.size());
         for (int i = 0; i < accounts.size(); i++) {
             assertEquals(accounts.get(i).getId(),(testAccounts.get(i).getId()));

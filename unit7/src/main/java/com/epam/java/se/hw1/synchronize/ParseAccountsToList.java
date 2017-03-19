@@ -35,7 +35,9 @@ public class ParseAccountsToList  extends Thread{
                 Element element = (Element) node;
                 Integer id = Integer.valueOf(element.getElementsByTagName("id").item(0).getTextContent());
                 Long balance = Long.valueOf(element.getElementsByTagName("balance").item(0).getTextContent());
-                accounts.add(new Account(id, balance));
+                Account account = new Account(id, balance);
+                accounts.add(account);
+                System.out.println(accounts.size() + " " + account.getId() + " " + account.getBalance());
             }
         }
     }
