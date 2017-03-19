@@ -22,6 +22,7 @@ public class ParseAccountsToList  extends Thread{
         return accounts;
     }
 
+
     @Override
     public void run() {
         parseAccountsToList();

@@ -1,6 +1,8 @@
 package com.epam.java.se.hw1;
 
 
+import com.epam.java.se.hw1.Account;
+
 import java.util.*;
 
 public class Sender {

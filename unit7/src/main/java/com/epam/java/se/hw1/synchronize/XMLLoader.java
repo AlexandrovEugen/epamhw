@@ -1,7 +1,7 @@
-package com.epam.java.se.hw1;
+package com.epam.java.se.hw1.synchronize;
 
-import com.epam.java.se.hw1.synchronize.ParseAccountsToList;
-import com.epam.java.se.hw1.synchronize.ParseSendersToList;
+import com.epam.java.se.hw1.Account;
+import com.epam.java.se.hw1.Sender;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -35,12 +35,13 @@ public class XMLLoader {
 
             testAccounts = new ParseAccountsToList(testAccountNodes);
             testAccounts.start();
-
             accounts = new ParseAccountsToList(accountNodes);
             senders = new ParseSendersToList(senderNodes, accounts);
             senders.start();
+            senders.join();
+            testAccounts.join();
 
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

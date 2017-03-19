@@ -3,7 +3,6 @@ package com.epam.java.se.hw1.synchronize;
 
 import com.epam.java.se.hw1.Account;
 import com.epam.java.se.hw1.Sender;
-import com.epam.java.se.hw1.XMLLoader;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -24,7 +24,6 @@ public class ParseSendersToList extends Thread {
         System.out.println(senders.getLength());
         Objects.requireNonNull(accountsThread);
         this.sendersNodeList = senders;
-        accountsThread.start();
         try {
             accountsThread.join();
         } catch (InterruptedException e) {
@@ -50,7 +49,6 @@ public class ParseSendersToList extends Thread {
     public void run() {
         parseSendersToList();
     }
-
 
     public List<Sender> getSenders(){
         return workingSenders;
