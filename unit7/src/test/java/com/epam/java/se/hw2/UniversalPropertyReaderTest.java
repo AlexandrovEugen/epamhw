@@ -4,10 +4,11 @@ package com.epam.java.se.hw2;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 public class UniversalPropertyReaderTest {
 
@@ -16,7 +17,8 @@ public class UniversalPropertyReaderTest {
 
     @Before
     public void readWithoutThreads(){
-        resourceBundle = ResourceBundle.getBundle("epamhw\\unit7\\src\\main\\resources\\fileforhw2.properties");
+        Locale locale = new Locale("en");
+        resourceBundle = ResourceBundle.getBundle("fileforhw2", locale);
     }
 
 
@@ -24,18 +26,19 @@ public class UniversalPropertyReaderTest {
     @Test
     public void testThatFilesKeysWereWrittenInMultiThreadMode(){
         UniversalPropertyReader reader = new UniversalPropertyReader();
+        reader.read("fileforhw2");
 
-        Set<Long> longKeys = reader.readKeysForLong();
-        Set<Integer> intKeys =  reader.readKeysForInt();
-        Set<Double>  doubleKeys = reader.readKeysForDouble();
-        Set<String>  stringKeys = reader.readKeysForString();
+        Set<Long> longVal = reader.readValForLong();
+        Set<Integer> intVal =  reader.readValForInt();
+        Set<Double>  doubleVal = reader.readValForDouble();
+        Set<String>  stringVal = reader.readValForString();
 
-        longKeys.forEach(l -> stringKeys.add(String.valueOf(l)));
-        intKeys.forEach(i -> stringKeys.add(String.valueOf(i)));
-        doubleKeys.forEach(d -> stringKeys.add(String.valueOf(d)));
+        longVal.forEach(l -> stringVal.add(String.valueOf(l)));
+        intVal.forEach(i -> stringVal.add(String.valueOf(i)));
+        doubleVal.forEach(d -> stringVal.add(String.valueOf(d)));
 
-        for (String keys :stringKeys) {
-            assertTrue(resourceBundle.containsKey(keys));
+        for (String key : resourceBundle.keySet()) {
+            assertTrue(stringVal.contains(resourceBundle.getString(key)));
         }
     }
 }
