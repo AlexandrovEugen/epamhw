@@ -12,6 +12,7 @@
         <module>unit4</module>
 		<module>unit5</module>
         <module>unit7</module>
+        <module>unit6</module>
     </modules>
     <packaging>pom</packaging>
 
