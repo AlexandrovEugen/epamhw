@@ -4,9 +4,7 @@ package com.epam.java.se.hw2;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -38,8 +36,19 @@ public class UniversalPropertyReaderTest {
 
     @Test
     public void testThatAllKeysFroPropertyFileAreContainInMap(){
+        Set<String> keysFromReader = uReader.getKeys();
+        Set<String> resourceKeys = resource.keySet();
+        for (String key: resourceKeys){
+            assertThat(key, is(keysFromReader.contains(key)));
+        }
     }
 
     @Test
-    public void testThatAllValuesFromPropertyFileAreContainInMap(){}
+    public void testThatAllValuesFromPropertyFileAreContainInMap(){
+        Set<String> valFromReader = uReader.getValues();
+        Set<String> resourceKeys = resource.keySet();
+        for (String key: resourceKeys){
+            assertThat(resource.getString(key), is((valFromReader.contains(resource.getString(key)))));
+        }
+    }
 }
