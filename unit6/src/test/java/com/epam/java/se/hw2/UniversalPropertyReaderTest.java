@@ -4,8 +4,8 @@ package com.epam.java.se.hw2;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,8 +31,10 @@ public class UniversalPropertyReaderTest {
         assertThat(uReader, is(notNullValue()));
     }
 
-    @Test
-    public void testThatThrowsExceptionWithNonExistingFile(){}
+    @Test(expected = MissingResourceException.class)
+    public void testThatThrowsExceptionWithNonExistingFile(){
+        uReader.load("notExists");
+    }
 
     @Test
     public void testThatAllKeysFroPropertyFileAreContainInMap(){
