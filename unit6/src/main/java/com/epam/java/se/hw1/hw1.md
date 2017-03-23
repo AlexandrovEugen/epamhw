@@ -1,5 +1,5 @@
 |               | Ordering      | Random access |Key-Value Pairs|Allows Duplicates|Allows Null Values|Thread Safe|Blocking Operations|
-| ------------- |:-------------:| -------------:|---------------|----------------:|-----------------:|----------:|------------------:|
+|--------------:|--------------:| -------------:|---------------|----------------:|-----------------:|----------:|------------------:|
 | ArrayList     |      Yes      |      Yes      |       No      |        Yes      |        Yes       |     No    |        No         |  
 | LinkedList    |      Yes      |       No      |       No      |        Yes      |        Yes       |     No    |        No         |
 | Vector        |      Yes      |      Yes      |       No      |        Yse      |        Yes       |    Yes    |       Yes         |
