@@ -47,11 +47,20 @@ public class IntegerSetterGetter extends  Thread {
     private void getIntegerFromResource() throws InterruptedException {
         Integer number;
         synchronized (resource) {
-            System.out.println("Поток " + getName() + " ждёт пока очередь заполнится.");
-            resource.wait();
-            System.out.println("Поток " + getName() + " возобновил работу.");
+            System.out.println("Поток " + getName() + " хочет извлечь число.");
             number = resource.getElement();
-            System.out.println("Поток " + getName() + " извлёк число" + number);
+            for (int i = 0; i < 10 && number == null; i++) {
+                System.out.println("Поток " + getName() + " ждёт пока очередь заполнится.");
+                resource.wait(100);
+                System.out.println("Поток " + getName() + " возобновил работу.");
+                number = resource.getElement();
+            }
+            if (number == null){
+                System.out.println("Поток " + getName() + "  не извлёк число" + number);
+            }
+            else {
+                System.out.println("Поток " + getName() + " извлёк число" + number);
+            }
         }
     }
 

@@ -3,9 +3,6 @@ package com.epam.java.se.hw3;
 
 import org.junit.Test;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class SharedTestResourceTest {
 
 
@@ -18,16 +15,26 @@ public class SharedTestResourceTest {
         IntegerSetterGetter t2 = new IntegerSetterGetter("3", res);
         IntegerSetterGetter t3 = new IntegerSetterGetter("4", res);
         IntegerSetterGetter t4 = new IntegerSetterGetter("5", res);
-        IntegerSetterGetter t5 = new IntegerSetterGetter("6", res);
 
-        ExecutorService ex = Executors.newCachedThreadPool();
-        ex.execute(t0);
-        ex.execute(t1);
-        ex.execute(t2);
-        ex.execute(t3);
-        ex.execute(t4);
-        ex.execute(t5);
-        ex.shutdown();
+        t0.start();
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+
+        Thread.sleep(100);
+
+        t0.stopThread();
+        t1.stopThread();
+        t2.stopThread();
+        t3.stopThread();
+        t4.stopThread();
+
+        t0.join();
+        t1.join();
+        t2.join();
+        t3.join();
+        t4.join();
 
         System.out.println("main");
     }
