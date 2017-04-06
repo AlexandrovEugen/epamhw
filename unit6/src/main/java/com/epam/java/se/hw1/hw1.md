@@ -2,7 +2,7 @@
 |--------------:|--------------:| -------------:|---------------|----------------:|-----------------:|----------:|------------------:|
 | ArrayList     |      Yes      |      Yes      |       No      |        Yes      |        Yes       |     No    |        No         |  
 | LinkedList    |      Yes      |       No      |       No      |        Yes      |        Yes       |     No    |        No         |
-| Vector        |      Yes      |      Yes      |       No      |        Yse      |        Yes       |    Yes    |       Yes         |
+| Vector        |      Yes      |      Yes      |       No      |        Yse      |        Yes       |    Yes    |        No         |
 | HashSet       |       No      |       No      |       No      |         No      |        Yes       |     No    |        No         |
 | LinkedHashSet |      Yes      |       No      |       No      |         No      |        Yes       |     No    |        No         |
 | TreSet        |      Yes      |       No      |       No      |         No      |        Yes       |     No    |        No         |

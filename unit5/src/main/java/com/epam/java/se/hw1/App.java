@@ -21,7 +21,7 @@ public class App {
         System.out.println("Shell command line is greeting you!!!");
         System.out.println(System.getProperty(currentDir));
         boolean isRunning = true;
-        while (isRunning){
+        while (isRunning) {
             try {
                 isRunning = handler(br.readLine());
             } catch (IOException e) {
@@ -30,68 +30,68 @@ public class App {
         }
     }
 
-    private static boolean handler(String clientQuery){
+    private static boolean handler(String clientQuery) {
 
         final List<String> parse = parse(clientQuery);
         final String command = getCommand(parse);
         boolean isRunning = true;
 
-        switch (command){
-            case "cd":{
+        switch (command) {
+            case "cd": {
                 String directory = getFileOrDirName(parse);
                 changeCurrentDirectory(directory);
             }
             break;
 
-            case "createDir":{
+            case "createDir": {
                 String directory = getFileOrDirName(parse);
                 createDir(directory);
             }
 
             break;
 
-            case "createFile":{
+            case "createFile": {
                 String fileName = getFileOrDirName(parse);
                 createFile(fileName);
             }
 
             break;
 
-            case "deleteFile":{
+            case "deleteFile": {
                 String fileName = getFileOrDirName(parse);
                 deleteFile(fileName);
             }
 
             break;
 
-            case "deleteDir":{
+            case "deleteDir": {
                 String directory = getFileOrDirName(parse);
                 deleteDir(directory);
             }
 
             break;
 
-            case "ls":{
+            case "ls": {
                 showContent();
             }
 
             break;
 
-            case "cat":{
+            case "cat": {
                 List<String> attributes = Arrays.stream(clientQuery.split(" ")).collect(Collectors.toList());
                 cat(attributes);
             }
 
             break;
 
-            case "help":{
+            case "help": {
                 System.out.println(shellCommands());
             }
 
             break;
 
-            case "exit":{
-                isRunning  = false;
+            case "exit": {
+                isRunning = false;
             }
 
             break;
@@ -102,17 +102,17 @@ public class App {
         return isRunning;
     }
 
-    private static void cat(List<String> attributes) {
+    public static List<String> cat(List<String> attributes) {
         Objects.requireNonNull(attributes);
 
-        if (attributes.get(1).equals(">")){
+        if (attributes.get(1).equals(">")) {
             writeToTheEndOfFile(attributes);
-        }
-        else if(attributes.get(1).equals(">>")){
+            return null;
+        } else if (attributes.get(1).equals(">>")) {
             rewriteFile(attributes);
-        }
-        else {
-            readFromFile(attributes);
+            return null;
+        } else {
+            return readFromFile(attributes);
         }
     }
 
@@ -147,8 +147,8 @@ public class App {
         changeCurrentDirectory(currentDir);
         File[] files = file.listFiles();
         if (files != null) {
-            for (File aFile: files) {
-                if (aFile.getName().equals(customDir)){
+            for (File aFile : files) {
+                if (aFile.getName().equals(customDir)) {
                     isContains = true;
                 }
             }
@@ -156,7 +156,7 @@ public class App {
         return isContains;
     }
 
-    public static void rewriteFile(List<String> attributes) {
+    private static void rewriteFile(List<String> attributes) {
         Path file = Paths.get(attributes.get(2)).toAbsolutePath();
         try {
             Files.write(file, attributes.stream().skip(3).collect(Collectors.toList()));
@@ -169,28 +169,27 @@ public class App {
         deleteDirectory(directory);
     }
 
-    public static void writeToTheEndOfFile(List<String> attributes) {
+    private static void writeToTheEndOfFile(List<String> attributes) {
         Path file = Paths.get(attributes.get(2)).toAbsolutePath();
         try {
-            Files.write(file,attributes.stream().skip(3).collect(Collectors.toList()), StandardOpenOption.APPEND);
+            Files.write(file, attributes.stream().skip(3).collect(Collectors.toList()), StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static List<String> readFromFile(List<String> attributes) {
-        String fileOrDirName = getFileOrDirName(attributes);
-        Path file = Paths.get(fileOrDirName);
+    private static List<String> readFromFile(List<String> attributes) {
+        String fileName = getFileOrDirName(attributes);
+        Path file = Paths.get(fileName);
         List<String> strings = null;
         try {
             strings = Files.readAllLines(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (strings != null){
-           return strings;
-        }
-        else {
+        if (strings != null) {
+            return strings;
+        } else {
             return null;
         }
     }
@@ -215,7 +214,7 @@ public class App {
 
     public static void deleteFile(String fileName) {
         File file = new File(fileName).getAbsoluteFile();
-        if (file.isFile()){
+        if (file.isFile()) {
             boolean delete = file.delete();
             System.out.println(delete);
         }
@@ -231,8 +230,8 @@ public class App {
     }
 
 
-    private  static String shellCommands() {
-        StringBuilder commands  = new StringBuilder();
+    private static String shellCommands() {
+        StringBuilder commands = new StringBuilder();
         commands.append("cd: -- Change directory: cd directory_name").append("\n").
                 append("cd ..-- Go to home directory: cd   ").append("\n").append("\n").
                 append("cd // -- Go to parent directory: cd ..").append("\n").
@@ -247,26 +246,29 @@ public class App {
                 append("exit");
         return commands.toString();
     }
+
     private static String getFileOrDirName(List<String> parse) {
         return parse.get(1);
     }
+
     private static String getCommand(List<String> parse) {
         return parse.get(0);
     }
+
     private static void showContent() {
         File file = new File(System.getProperty("user.dir"));
         changeCurrentDirectory(currentDir);
         File[] files = file.listFiles();
         if (files != null) {
-            for (File aFile: files) {
+            for (File aFile : files) {
                 System.out.println(aFile.getName());
             }
-        }
-        else {
+        } else {
             throw new NullPointerException();
         }
     }
-    private  static List<String> parse(String clientQuery) {
+
+    private static List<String> parse(String clientQuery) {
         Objects.requireNonNull(clientQuery);
         List<String> strings = Arrays.asList(clientQuery.split(" "));
         if (strings.isEmpty()) {
@@ -274,5 +276,4 @@ public class App {
         }
         return strings;
     }
-
 }
